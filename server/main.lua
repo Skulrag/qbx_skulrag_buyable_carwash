@@ -65,9 +65,9 @@ AddEventHandler('qbx_skulrag_buyable_carwash:buy_carwash', function(zone)
             exports.qbx_core:AddMoney(identifier, 'bank', tonumber(price))
         end
         print(('[Carwash bought] FROM : Owner Identifier: %s /  BY : Identifier: %s'):format(Carwash[zone].owner, identifier))
-        exports.qbx_core:Notify(_source, Lang:t('bought'), 'success')
+        exports.qbx_core:Notify(_source, locale('bought', price), 'success')
     else
-        exports.qbx_core:Notify(_source, Lang:t('not_enough_money'), 'error')
+        exports.qbx_core:Notify(_source, locale('not_enough_money'), 'error')
     end
 end)
 
@@ -92,12 +92,12 @@ AddEventHandler('qbx_skulrag_buyable_carwash:withdrawMoneyFromStation', function
           ['@zone'] = zone,
       })
       if success then
-        exports.qbx_core:AddMoney(identifier, 'bank', tonumber(price))
+        exports.qbx_core:AddMoney(identifier, 'bank', tonumber(amount))
         print(('[Carwash withdrawMoney] BY : Owner Identifier: %s / Quantity : %s'):format(identifier, amount))
-        exports.qbx_core:Notify(_source, Lang:t('have_withdrawn'), 'success')
+        exports.qbx_core:Notify(_source, locale('have_withdrawn', amount), 'success')
       end
     else
-      TriggerClientEvent('QBCore:Notify', _source, Lang:t('invalid_amount'))
+      TriggerClientEvent('QBCore:Notify', _source, locale('invalid_amount'))
     end
 end)
 
@@ -168,6 +168,6 @@ AddEventHandler('qbx_skulrag_buyable_carwash:checkMoneyForWash', function(price,
         exports.qbx_core:RemoveMoney(identifier, 'bank', price)
         addMoneyToCarWash(zone, price)
     else
-        exports.qbx_core:Notify(_source, Lang:t('not_enough_money'), 'error')
+        exports.qbx_core:Notify(_source, locale('not_enough_money'), 'error')
     end
 end)

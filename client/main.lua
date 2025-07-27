@@ -81,7 +81,7 @@ function initBlips()
         SetBlipColour(Config.Zones[k].Washer.Blip, 2)
       end
       BeginTextCommandSetBlipName("STRING")
-      AddTextComponentString(Lang:t('carwash_blip'))
+      AddTextComponentString(locale('carwash_blip'))
       EndTextCommandSetBlipName(Config.Zones[k].Washer.Blip)
       SetBlipAsShortRange(Config.Zones[k].Washer.Blip, true)
     end
@@ -95,14 +95,14 @@ function OpenBuyMenu(zone)
   local isForsale, price = lib.callback.await('qbx_skulrag_buyable_carwash:isforsale', false, zone)
   if isForsale then
     table.insert(elements, {
-      title = Lang:t('buy_carwash', {price}),
+      title = locale('buy_carwash', price),
       onSelect = function() TriggerServerEvent('qbx_skulrag_buyable_carwash:buy_carwash', zone) end
     })
   end
 
   lib.registerContext({
     id = 'qbx_skulrag_carwash_buy_menu',
-    title = Lang:t('carwash_blip'),
+    title = locale('carwash_blip'),
     options = elements
   })
   lib.showContext('qbx_skulrag_carwash_buy_menu')
@@ -116,26 +116,26 @@ function OpenProprioMenu(zone)
 
   if isForsale then
     table.insert(elements, { 
-      title = Lang:t('cancel_selling'),
+      title = locale('cancel_selling'),
       icon = 'fa-solid fa-xmark',
       onSelect = function () TriggerServerEvent('qbx_skulrag_buyable_carwash:cancelselling', zone) end
     })
   elseif not isForsale then
     local accountMoney = lib.callback.await('qbx_skulrag_buyable_carwash:getAccountMoney', zone)
     table.insert(elements, {
-      title = (Lang:t('stored_money') .. '<span style="color:green;">%s</span>'):format(accountMoney),
-      description = Lang:t('withdraw_money'),
+      title = (locale('stored_money') .. '<span style="color:green;">%s</span>'):format(accountMoney),
+      description = locale('withdraw_money'),
       onSelect = function () TriggerServerEvent('qbx_skulrag_buyable_carwash:withdrawMoneyFromStation', zone) end
     })
     table.insert(elements, {
-      title = Lang:t('put_forsale'),
+      title = locale('put_forsale'),
       onSelect = function () TriggerServerEvent('qbx_skulrag_buyable_carwash:putforsale', zone, Config.ForceSellPrice) end
     })
   end
 
   lib.registerContext({
     id = 'qbx_skulrag_carwash_manage_menu',
-    title = Lang:t('shop_proprio'),
+    title = locale('shop_proprio'),
     options = elements
   })
   lib.showContext('qbx_skulrag_carwash_manage_menu')
